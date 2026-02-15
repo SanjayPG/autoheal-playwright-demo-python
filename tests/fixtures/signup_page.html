@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign up Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background: #f8f9fa;
+    }
+    h1 {
+      color: #333;
+    }
+    form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      width: 300px;
+      margin-bottom: 20px;
+    }
+    label {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    input[type="checkbox"] {
+      margin-right: 8px;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-right: 10px;
+      margin-top: 10px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .welcome {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #444;
+      display: block;
+    }
+    .logo {
+      display: block;
+      margin-bottom: 20px;
+    }
+    .issues {
+      font-size: 16px;
+      color: #555;
+      display: block;
+      margin-bottom: 20px;
+    }
+    x-details {
+      display: block;
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      cursor: pointer;
+      width: fit-content;
+    }
+    ul {
+      list-style-type: disc;
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 20px;
+    }
+    li h3 {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <!-- Welcome Message -->
+  <span class="welcome">Welcome, John</span>
+
+  <!-- Playwright Logo -->
+  <img
+    class="logo"
+    alt="Playwright logo"
+    src="https://playwright.dev/img/playwright-logo.svg"
+    width="120"
+  />
+
+  <!-- Issues Count -->
+  <span class="issues" title="Issues count">25 issues</span>
+
+  <h1>Sign up</h1>
+
+  <form>
+    <label>
+      <input type="checkbox" name="subscribe" />
+      Subscribe
+    </label>
+
+    <!-- First Submit Button -->
+    <button id="firstSubmit" data-testid="submit-first" type="button">Submit</button>
+
+    <!-- Second Submit Button -->
+    <button id="secondSubmit" data-testid="submit-second" type="button">Submit</button>
+  </form>
+
+  <!-- Test ID Button -->
+  <button data-testid="directions">Itin&#233;raire</button>
+
+  <!-- Shadow DOM element -->
+  <x-details role="button" aria-expanded="true" aria-controls="inner-details">
+    <div>Title</div>
+  </x-details>
+
+  <!-- Product List -->
+  <ul>
+    <li>
+      <h3>Product 1</h3>
+      <button>Add to cart</button>
+    </li>
+    <li>
+      <h3>Product 2</h3>
+      <button>Add to cart</button>
+    </li>
+  </ul>
+
+  <!-- People List (for chained filter test) -->
+  <ul>
+    <li>
+      <span>John</span>
+      <button>Say goodbye</button>
+    </li>
+    <li>
+      <span>Jane</span>
+      <button>Say goodbye</button>
+    </li>
+  </ul>
+
+  <script>
+    // Attach shadow root for x-details
+    const xDetails = document.querySelector('x-details');
+    const shadowRoot = xDetails.attachShadow({ mode: 'open' });
+
+    // Slot projects the light-DOM <div>Title</div> into the shadow tree
+    const slot = document.createElement('slot');
+    shadowRoot.appendChild(slot);
+
+    const innerDiv = document.createElement('div');
+    innerDiv.id = 'inner-details';
+    innerDiv.textContent = 'Details';
+    shadowRoot.appendChild(innerDiv);
+
+    // Handle button clicks
+    const firstBtn = document.getElementById('firstSubmit');
+    const secondBtn = document.getElementById('secondSubmit');
+
+    firstBtn.addEventListener('click', () => {
+      alert('First button is clicked');
+      window.open('https://example.com/first', '_blank');
+    });
+
+    secondBtn.addEventListener('click', () => {
+      alert('Second button is clicked');
+      window.open('https://example.com/second', '_blank');
+    });
+  </script>
+</body>
+</html>

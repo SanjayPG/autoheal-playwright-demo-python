@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AutoHeal Locator Test Page</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; }
+        .section { margin-bottom: 30px; border: 1px solid #ddd; padding: 15px; border-radius: 5px; }
+        h2 { color: #333; margin-top: 0; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, textarea, select { margin-bottom: 10px; padding: 5px; }
+        button { padding: 8px 16px; margin: 5px; cursor: pointer; }
+        .product-list { list-style: none; padding: 0; }
+        .product-list li { padding: 10px; border: 1px solid #eee; margin: 5px 0; }
+        .product-list li h3 { margin: 0 0 5px 0; }
+        .nav-link { margin: 0 10px; color: blue; text-decoration: underline; cursor: pointer; }
+        .tooltip { cursor: help; }
+        .hidden-section { display: none; }
+    </style>
+</head>
+<body>
+    <h1>AutoHeal Locator Test Page</h1>
+
+    <!-- SECTION: Roles (get_by_role) -->
+    <div class="section" id="roles-section">
+        <h2>Roles Section</h2>
+        <button id="submit-btn">Submit</button>
+        <button id="cancel-btn">Cancel</button>
+        <button id="reset-btn" type="reset">Reset Form</button>
+
+        <div>
+            <input type="checkbox" id="agree-cb" name="agree" />
+            <label for="agree-cb">I agree to the terms</label>
+        </div>
+        <div>
+            <input type="checkbox" id="subscribe-cb" name="subscribe" />
+            <label for="subscribe-cb">Subscribe to newsletter</label>
+        </div>
+
+        <nav>
+            <a href="#home" class="nav-link">Home</a>
+            <a href="#about" class="nav-link">About Us</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </nav>
+    </div>
+
+    <!-- SECTION: Labels (get_by_label) -->
+    <div class="section" id="labels-section">
+        <h2>Labels Section</h2>
+        <form id="login-form">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" />
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" />
+
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" />
+
+            <label for="bio">Biography</label>
+            <textarea id="bio" name="bio" rows="3"></textarea>
+        </form>
+    </div>
+
+    <!-- SECTION: Placeholders (get_by_placeholder) -->
+    <div class="section" id="placeholder-section">
+        <h2>Placeholder Section</h2>
+        <input type="text" placeholder="Enter your name" id="name-input" />
+        <input type="email" placeholder="name@example.com" id="email-input" />
+        <input type="tel" placeholder="(555) 123-4567" id="phone-input" />
+        <input type="text" placeholder="Search..." id="search-input" />
+    </div>
+
+    <!-- SECTION: Text Content (get_by_text) -->
+    <div class="section" id="text-section">
+        <h2>Text Section</h2>
+        <p>Welcome to the test page</p>
+        <p>This paragraph contains important information about testing.</p>
+        <span id="status-text">Status: Active</span>
+        <div class="message">Operation completed successfully</div>
+    </div>
+
+    <!-- SECTION: Alt Text (get_by_alt_text) -->
+    <div class="section" id="alt-section">
+        <h2>Images Section</h2>
+        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><rect fill='%2300f' width='100' height='100'/></svg>"
+             alt="Company Logo" width="100" height="100" />
+        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><rect fill='%230f0' width='100' height='100'/></svg>"
+             alt="User Avatar" width="100" height="100" />
+    </div>
+
+    <!-- SECTION: Title (get_by_title) -->
+    <div class="section" id="title-section">
+        <h2>Title Section</h2>
+        <span title="Total Issues" class="tooltip" id="issues-count">42 Issues</span>
+        <span title="Open Pull Requests" class="tooltip" id="pr-count">7 PRs</span>
+        <a href="#help" title="Click for help">Need Help?</a>
+    </div>
+
+    <!-- SECTION: Test IDs (get_by_test_id) -->
+    <div class="section" id="testid-section">
+        <h2>Test ID Section</h2>
+        <button data-testid="save-button">Save</button>
+        <button data-testid="delete-button">Delete</button>
+        <input type="text" data-testid="search-field" placeholder="Search items" />
+        <div data-testid="results-panel">
+            <p>No results yet.</p>
+        </div>
+    </div>
+
+    <!-- SECTION: Product List (filtering tests) -->
+    <div class="section" id="filter-section">
+        <h2>Product List</h2>
+        <ul class="product-list" role="list">
+            <li role="listitem" data-testid="product-1">
+                <h3>Product 1</h3>
+                <span class="price">$10.00</span>
+                <button>Add to Cart</button>
+            </li>
+            <li role="listitem" data-testid="product-2">
+                <h3>Product 2</h3>
+                <span class="price">$20.00</span>
+                <span class="badge">Out of stock</span>
+            </li>
+            <li role="listitem" data-testid="product-3">
+                <h3>Product 3</h3>
+                <span class="price">$30.00</span>
+                <button>Add to Cart</button>
+            </li>
+        </ul>
+    </div>
+
+    <!-- SECTION: CSS/XPath targets -->
+    <div class="section" id="css-xpath-section">
+        <h2>CSS and XPath Section</h2>
+        <div class="card" id="first-card">
+            <p class="card-title">First Card</p>
+            <p class="card-body">Content of the first card.</p>
+        </div>
+        <div class="card" id="second-card">
+            <p class="card-title">Second Card</p>
+            <p class="card-body">Content of the second card.</p>
+        </div>
+    </div>
+
+</body>
+</html>
