@@ -117,3 +117,92 @@ async def test_quickstart_full_login_flow(page: Page, quickstart_locator):
     await page.wait_for_url("**/inventory.html", timeout=5000)
     assert "inventory" in page.url
     print("Quickstart full login flow works!")
+
+
+@pytest.mark.quickstart
+@pytest.mark.asyncio
+async def test_quickstart_native_locators_full_login(page: Page, quickstart_locator):
+    """
+    Quickstart example: Complete login flow using Playwright native locators.
+
+    Uses get_by_role, get_by_placeholder - all with WRONG values
+    that AutoHeal will fix automatically.
+    """
+    await page.goto("https://www.saucedemo.com")
+
+    # WRONG role name - AutoHeal fixes it
+    username = await quickstart_locator.find_async(
+        page.get_by_role("textbox", name="Username-BROKEN"),
+        "Username input field on SauceDemo login page"
+    )
+    await username.fill("standard_user")
+
+    # WRONG placeholder - AutoHeal fixes it
+    password = await quickstart_locator.find_async(
+        page.get_by_placeholder("Password-BROKEN"),
+        "Password input field on SauceDemo login page"
+    )
+    await password.fill("secret_sauce")
+
+    # WRONG button name - AutoHeal fixes it
+    login_btn = await quickstart_locator.find_async(
+        page.get_by_role("button", name="Sign In"),
+        "Login button on SauceDemo login page"
+    )
+    await login_btn.click()
+
+    # Verify login succeeded
+    await page.wait_for_url("**/inventory.html", timeout=5000)
+    assert "inventory" in page.url
+    print("Quickstart native locators full login works!")
+
+
+@pytest.mark.quickstart
+@pytest.mark.asyncio
+async def test_quickstart_native_locators_add_to_cart(page: Page, quickstart_locator):
+    """
+    Quickstart example: Login and add item to cart using native locators.
+
+    Demonstrates healing of various Playwright locator types in a real flow.
+    """
+    # Login first (using correct locators to speed up test)
+    await page.goto("https://www.saucedemo.com")
+
+    username = await quickstart_locator.find_async(
+        page.get_by_role("textbox", name="Username"),
+        "Username input"
+    )
+    await username.fill("standard_user")
+
+    password = await quickstart_locator.find_async(
+        page.get_by_role("textbox", name="Password"),
+        "Password input"
+    )
+    await password.fill("secret_sauce")
+
+    login_btn = await quickstart_locator.find_async(
+        page.get_by_role("button", name="Login"),
+        "Login button"
+    )
+    await login_btn.click()
+
+    await page.wait_for_url("**/inventory.html", timeout=5000)
+
+    # WRONG button text - AutoHeal fixes it
+    add_to_cart_btn = await quickstart_locator.find_async(
+        page.get_by_role("button", name="Add to cart - BROKEN"),
+        "Add to cart button for first product on inventory page"
+    )
+    await add_to_cart_btn.click()
+
+    # WRONG link - AutoHeal fixes it
+    cart_link = await quickstart_locator.find_async(
+        page.get_by_role("link", name="Cart-BROKEN"),
+        "Shopping cart link in header"
+    )
+    await cart_link.click()
+
+    # Verify item in cart
+    await page.wait_for_url("**/cart.html", timeout=5000)
+    assert "cart" in page.url
+    print("Quickstart native locators add to cart works!")
